@@ -49,9 +49,13 @@ const options = {
 flatpickr("#datetime-picker", options);
 
 function handleStartBtnClick() {
-     setInterval(() => {
+     const counterInc = setInterval(() => {
             const currentTime = Date.now()
          const deltaTime = selectedTime - currentTime
+         if (deltaTime < 0) {
+             clearInterval(counterInc)
+             return
+         }
          const { days, hours, minutes, seconds } = convertMs(deltaTime)
          console.log(`${days}:${hours}:${minutes}:${seconds}`)
          updateClockface({ days, hours, minutes, seconds })
